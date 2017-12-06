@@ -84,6 +84,51 @@ object Utils {
     pos.x.abs + pos.y.abs
   }
 
+  def getFirstLargerThan(value: Int): Int = {
+    var x = 0
+    var sum = 0
+
+    while(sum <= value) {
+      x = x + 1
+      sum = getSumofAdjacent(x);
+    }
+    sum
+  }
+
+  def getSumofAdjacent(i: Int): Int = {
+    // 1 is a special case.
+    if (i == 1) {
+      1
+    } else {
+      // recursive from 1 to n to calculate value for all steps.
+      // we start with 2 since 1 is a special case, and we need to add that to acc.
+      recCalcValue(i, 2, 1, Map(Pos(0,0) -> 1))
+    }
+  }
+
+  // recursive calculate value from adjacent neigbors
+  def recCalcValue(max: Int, curr: Int, value: Int, acc: Map[Pos, Int]): Int = {
+    if(curr > max) {
+      value
+    } else {
+      val sum = getNeighbors(curr).map(p => acc.getOrElse(p, 0)).sum
+      recCalcValue(max, curr + 1, sum, acc + (getPosition(curr) -> sum))
+    }
+  }
+
+  def getNeighbors(i: Int): List[Pos] = {
+    if (i < 2) {
+      List.empty
+    } else {
+      val curr = getPosition(i)
+      (1 to (i - 1)).toList.map(i => getPosition(i)).filter(p => areNeighbors(p, curr))
+    }
+  }
+
+  def areNeighbors(p1: Pos, p2: Pos): Boolean = {
+    (p1.y - p2.y).abs <= 1 && (p1.x - p2.x).abs <= 1
+  }
+
   def getPosition(i: Int): Pos = {
     walkPos(i, Pos(0, 0), Down(), 0, 0)
   }

@@ -59,7 +59,7 @@ class UtilsTest extends PlaySpec {
     }
   }
 
-  "Day 3" must {
+  "Day 3 part 1" must {
     "calculate proper position for an integer" in {
       getPosition(1) mustBe Pos(0, 0)
       getPosition(2) mustBe Pos(1, 0)
@@ -78,6 +78,28 @@ class UtilsTest extends PlaySpec {
       getDistance(getPosition(23)) mustBe 2
       getDistance(getPosition(1024)) mustBe 31
       getDistance(getPosition(361527)) mustBe 326
+    }
+  }
+
+  "Day 3 part 2" must {
+    "get all smaller neighbors" in {
+      getNeighbors(1) mustBe List.empty
+      getNeighbors(2) mustBe List(Pos(0, 0))
+      getNeighbors(3) mustBe List(Pos(0,0), Pos(1, 0))
+      getNeighbors(4) mustBe List(Pos(0,0), Pos(1, 0), Pos(1, 1))
+      getNeighbors(5) mustBe List(Pos(0,0), Pos(0, 1))
+    }
+    "get sum of adjacent squares" in {
+      getSumofAdjacent(1) mustBe 1
+      getSumofAdjacent(2) mustBe 1
+      getSumofAdjacent(3) mustBe 2
+      getSumofAdjacent(4) mustBe 4
+      getSumofAdjacent(5) mustBe 5
+      getSumofAdjacent(10) mustBe 26
+    }
+    "get position larger than" in {
+      getFirstLargerThan(26) mustBe 54
+      getFirstLargerThan(361527) mustBe 363010
     }
   }
 }
