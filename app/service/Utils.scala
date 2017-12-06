@@ -20,7 +20,7 @@ object Utils {
 
     val values = n.zipWithIndex.map {
       case (value, index) =>
-        if (value == n((index + offset) % size)){
+        if (value == n((index + offset) % size)) {
           value
         } else {
           0
@@ -32,4 +32,22 @@ object Utils {
   def stringAsIntList(str: String): List[Int] = {
     str.toList.map(c => Integer.parseInt(c.toString));
   }
+
+
+  /**
+    * Day 2
+    */
+  def calcChecksum(input: String) = {
+    input.split("\n").map(row => calcRowDiff(row)).sum
+  }
+
+  def calcRowDiff(input: String) = {
+    val n = stringSplitToIntList(input)
+    n.max - n.min
+  }
+
+  def stringSplitToIntList(str: String): List[Int] = {
+    str.split("\\s+").toList.map(c => Integer.parseInt(c));
+  }
 }
+
