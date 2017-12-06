@@ -35,7 +35,7 @@ object Utils {
 
 
   /**
-    * Day 2
+    * Day 2 part 1
     */
   def calcChecksum(input: String) = {
     input.split("\n").map(row => calcRowDiff(row)).sum
@@ -45,6 +45,31 @@ object Utils {
     val n = stringSplitToIntList(input)
     n.max - n.min
   }
+
+  /**
+    * Day 2 part 2
+    */
+  def calcChecksum2(input: String) = {
+    input.split("\n").map(row => calcRowDivide(row)).sum
+  }
+
+  // Find a pair of numbers that can return an even value when divided by each other.
+  // There is only one such pair per row, so we can quit when we find it.
+  def calcRowDivide(input: String) = {
+    val n = stringSplitToIntList(input).filter(v => v != 0)
+    val d = n.map(dividend => (dividend, getDivisor(dividend, n))).filter(dd => dd._2 > 0).head
+    d._1 / d._2
+  }
+
+  /* Valid divisors are always smaller than dividend and larger than zero. */
+  def getDivisor(dividend: Int, divisors: List[Int]): Int = {
+    divisors
+      .filter(d => d < dividend && d > 0)
+      .filter(d => dividend % d == 0)
+      .headOption
+      .getOrElse(0)
+  }
+
 
   def stringSplitToIntList(str: String): List[Int] = {
     str.split("\\s+").toList.map(c => Integer.parseInt(c));
