@@ -58,4 +58,26 @@ class UtilsTest extends PlaySpec {
       calcChecksum2(challenge) mustBe 280
     }
   }
+
+  "Day 3" must {
+    "calculate proper position for an integer" in {
+      getPosition(1) mustBe Pos(0, 0)
+      getPosition(2) mustBe Pos(1, 0)
+      getPosition(3) mustBe Pos(1, 1)
+      getPosition(4) mustBe Pos(0, 1)
+      getPosition(5) mustBe Pos(-1, 1)
+      getPosition(6) mustBe Pos(-1, 0)
+      getPosition(10) mustBe Pos(2, -1)
+      getPosition(12) mustBe Pos(2, 1)
+      getPosition(23) mustBe Pos(0, -2)
+    }
+
+    "calculate distance for a position to 1" in {
+      getDistance(getPosition(1)) mustBe 0
+      getDistance(getPosition(12)) mustBe 3
+      getDistance(getPosition(23)) mustBe 2
+      getDistance(getPosition(1024)) mustBe 31
+      getDistance(getPosition(361527)) mustBe 326
+    }
+  }
 }

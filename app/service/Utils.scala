@@ -70,9 +70,79 @@ object Utils {
       .getOrElse(0)
   }
 
-
   def stringSplitToIntList(str: String): List[Int] = {
     str.split("\\s+").toList.map(c => Integer.parseInt(c));
   }
+
+  /**
+    * Day 3
+    *
+    * Position is a spiral around the point (0,0). Get the proper tuple for any integer > 0
+    */
+
+  def getDistance(pos: Pos): Int = {
+    pos.x.abs + pos.y.abs
+  }
+
+  def getPosition(i: Int): Pos = {
+    walkPos(i, Pos(0, 0), Down(), 0, 0)
+  }
+
+  // stepsLeft == steps left to take before we reach our position
+  // currPos == current position
+  // s == steps we have taken in current direction
+  // m == max steps to take before changing direction
+  def walkPos(stepsLeft: Int, currPos: Pos, d: Direction, s: Int, m: Int): Pos = {
+    // since our starting point is 1, we also end at 1.
+    if (stepsLeft == 1) {
+      currPos
+    } else {
+      // if we have taken all the steps needed this direction, move on.
+      if (s >= m) {
+        val nextDir = next(d)
+        val max = nextDir match {
+          case Left() => m + 1
+          case Right() => m + 1
+          case _ => m
+        }
+        walkPos(stepsLeft - 1, move(currPos, nextDir), nextDir, 1, max)
+      } else {
+        walkPos(stepsLeft - 1, move(currPos, d), d, s + 1, m)
+      }
+    }
+  }
+
+  // next direction.
+  def next(dir: Direction): Direction = {
+    dir match {
+      case Right() => Up()
+      case Up() => Left()
+      case Left() => Down()
+      case Down() => Right()
+    }
+  }
+
+  // move position in the given direction.
+  def move(pos: Pos, dir: Direction): Pos = {
+    dir match {
+      case Right() => Pos(pos.x + 1, pos.y)
+      case Up() => Pos(pos.x, pos.y + 1)
+      case Left() => Pos(pos.x - 1, pos.y)
+      case Down() => Pos(pos.x, pos.y - 1)
+    }
+  }
+
+  abstract class Direction()
+
+  case class Left() extends Direction
+
+  case class Right() extends Direction
+
+  case class Up() extends Direction
+
+  case class Down() extends Direction
+
+  case class Pos(x: Int, y: Int)
+
 }
 
