@@ -11,8 +11,7 @@ class Day5Test extends PlaySpec {
       solveMaze("0 3 0 1 -3") mustBe 5
     }
     "step out of the challenge" in {
-      // commented since this is slow
-      //solveMaze(challenge) mustBe 394829
+      solveMaze(challenge) mustBe 394829
     }
   }
 
@@ -21,8 +20,7 @@ class Day5Test extends PlaySpec {
       solveMaze2("0 3 0 1 -3") mustBe 10
     }
     "step out of the challenge" in {
-      // commented since this is slow
-      //solveMaze2(challenge) mustBe 31150702
+      solveMaze2(challenge) mustBe 31150702
     }
   }
 }
