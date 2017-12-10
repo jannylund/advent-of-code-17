@@ -33,7 +33,7 @@ object Day10 {
 
   // make hex and pad with zero
   def makeHex(arr: List[Int]): String = {
-    arr.map(v => ("0" + v.toHexString) takeRight 2).foldLeft("")(_ + _)
+    arr.map(v => ("0" + v.toHexString) takeRight 2).reduceLeft(_ + _)
   }
 
   def denseHash(arr: Array[Int]): List[Int] = {
@@ -41,7 +41,7 @@ object Day10 {
   }
 
   def xor(arr: List[Int]): Int = {
-    arr.foldLeft(0)((a, b) => a ^ b)
+    arr.reduce((a, b) => a ^ b)
   }
 
   def getHash(str: String): String = {
