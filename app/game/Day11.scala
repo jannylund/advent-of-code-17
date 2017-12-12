@@ -1,21 +1,22 @@
 package game
 
 object Day11 {
-  val start = Pos(0, 0, 0)
+  val start = List(Pos(0, 0, 0))
 
   def distance(str: String) = {
-    travel(start, str.split(","))._1
+    measure(travel(start, str.split(",")).head)
   }
 
   def maxDistance(str: String) = {
-    travel(start, str.split(","))._2
+    travel(start, str.split(",")).map(p => measure(p)).max
   }
 
-  def travel(p: Pos = Pos(0, 0, 0), moves: Seq[String], max: Int = 0): (Int, Int) = {
+  // Travel gives us a reverse list of positions we visited. So head is always current.
+  def travel(hist: List[Pos], moves: Seq[String]): List[Pos] = {
     if (moves.isEmpty) {
-      (measure(p), max)
+      hist
     } else {
-      travel(move(moves.head, p), moves.tail, Math.max(max, measure(p)))
+      travel(List(move(moves.head, hist.head)) ++ hist, moves.tail)
     }
   }
 
