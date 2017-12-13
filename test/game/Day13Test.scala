@@ -16,7 +16,7 @@ class Day13Test extends PlaySpec {
   }
 
   "Day 13 Part 2" must {
-    "find the delay that would mean we can pass through without risk" in {
+    "find the delay that allows us to pass through without risk" in {
       findDelay(test) mustBe 10
       findDelay(challenge) mustBe 3849742
     }

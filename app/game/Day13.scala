@@ -9,12 +9,14 @@ object Day13 {
   }
 
   def findDelay(str: String) = {
-    val p = parse(str)
-    var d = 0
-    do {
-      d = d + 1
-    } while (!p.filter(l => isRisky(l, d)).isEmpty)
-    d
+    freePass(parse(str))
+  }
+
+  def freePass(p: Seq[Layer], o: Int = 0): Int = {
+    p.exists(l => isRisky(l, o)) match {
+      case false => o
+      case _ => freePass(p, o + 1)
+    }
   }
 
   def isRisky(l: Layer, o: Int = 0): Boolean = {
