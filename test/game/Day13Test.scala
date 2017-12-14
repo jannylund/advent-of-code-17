@@ -1,6 +1,7 @@
 package game
 
 import game.Day13._
+import utils.Helpers._
 import org.scalatestplus.play.PlaySpec
 
 class Day13Test extends PlaySpec {
@@ -10,15 +11,15 @@ class Day13Test extends PlaySpec {
 
   "Day 13 Part 1" must {
     "know the severity of moving through memory" in {
-      calculateSeverity(test) mustBe 24
-      calculateSeverity(challenge) mustBe 632
+      time("calculateSeverity test") { calculateSeverity(test) } mustBe 24
+      time("calculateSeverity challenge") { calculateSeverity(challenge) } mustBe 632
     }
   }
 
   "Day 13 Part 2" must {
     "find the delay that allows us to pass through without risk" in {
-      findDelay(test) mustBe 10
-      findDelay(challenge) mustBe 3849742
+      time("findDelay sample") { findDelay(test) } mustBe 10
+      time("findDelay challenge") { findDelay(challenge) } mustBe 3849742
     }
   }
 }
