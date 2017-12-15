@@ -14,12 +14,12 @@ object Day10 {
       // get the sublist and reverse it. we use a double list to simulate the rotation.
       val rev = (arr ++ arr).slice(pos, (pos + len.head)).reverse
       // now create a new list that contains these new values as well as the incoming
-      for((value, i) <- rev.view.zipWithIndex) {
+      for(i <- rev.indices) {
         val index = (i + pos) % arr.length
-        arr(index) = value
+        arr(index) = rev(i)
       }
       val nextPos = (pos + skipSize + len.head) % arr.length
-      reverseHash(arr, len.drop(1), nextPos, skipSize + 1)
+      reverseHash(arr, len.tail, nextPos, skipSize + 1)
     }
   }
 

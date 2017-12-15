@@ -14,15 +14,12 @@ object Day14 {
   // add +1 for the region of unused blocks.
   def calcRegions(str: String) = {
     val used = getUsed(grid(str))
-    findRegions(used, Set(used.head)).size + 1
+    findRegions(used.toSet, Set(used.head)).size + 1
   }
 
   // get a list of all coordinates of the positions with ones.
   def getUsed(grid: Array[Array[Int]]) = {
-    grid.zipWithIndex.flatMap({ case (l, x) => l.zipWithIndex.map({ case (v, y) => (x, y, v) }) })
-      .filter(_._3 == 1)
-      .map(t3 => Pos(t3._1, t3._2))
-      .toSet
+    for (x <- grid.indices; y <- grid(x).indices if grid(x)(y) == 1) yield Pos(x, y)
   }
 
   def findRegions(used: Set[Pos], group: Set[Pos], regions: Seq[Set[Pos]] = Seq.empty): Seq[Set[Pos]] = {
